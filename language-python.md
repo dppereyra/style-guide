@@ -152,7 +152,7 @@ Open source projects with a global audience are encouraged to adopt a similar po
     ```python
     Yes: import os
          import sys
-    
+
     No:  import sys, os
     ```
 + It's okay to say this though:
@@ -162,7 +162,7 @@ Open source projects with a global audience are encouraged to adopt a similar po
 + Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
     Imports should be grouped in the following order:
 
-    standard library imports 
+    standard library imports
     related third party imports
     local application/library specific imports
     You should put a blank line between each group of imports.
@@ -182,6 +182,47 @@ Open source projects with a global audience are encouraged to adopt a similar po
 + Wildcard imports ( from <module> import * ) should be avoided, as they make it unclear which names are present in the namespace, confusing both readers and many automated tools. There is one defensible use case for a wildcard import, which is to republish an internal interface as part of a public API (for example, overwriting a pure Python implementation of an interface with the definitions from an optional accelerator module and exactly which definitions will be overwritten isn't known in advance).
 
     When republishing names this way, the guidelines below regarding public and internal interfaces still apply.
+
+#### If Statements
+
++ For tests of true and false, unless
+
+
++ When checking if a value is in a dictionary, refrain from using the .keys() method.
+
+```python
+# Yes:
+if key_entry in dict_var:
+    do_this()
+
+# No:
+if key_entry in dict_var.keys() :
+    do_this()
+```
+
++ When testing empty strings. Python treats empty strings as False so you can just immediately do the check.
+
+```python
+# Yes:
+if text:
+    do_this()
+
+# No:
+if text != '':
+    do_this()
+```
+
++ When testing for `None`, do not use comparison operators. Use `is` or `is not` instead.
+
+```python
+# Yes:
+if var is None:
+    do_this()
+
+# No:
+if var == None:
+    do_this()
+```
 
 ### Whitespace in Expressions and Statements
 
@@ -232,7 +273,7 @@ x = 1
 y = 2
 long_variable = 3
 
-# No: 
+# No:
 x             = 1
 y             = 2
 long_variable = 3
@@ -274,7 +315,7 @@ def complex(real, imag = 0.0):
 + While sometimes it's okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements. Also avoid folding such long lines!
 
 ```python
-# Yes: 
+# Yes:
 if foo == 'blah':
     do_blah_thing()
 else:
@@ -314,7 +355,7 @@ Paragraphs inside a block comment are separated by a line containing a single # 
 
 DON'T use inline comments!
 
-Inline comments are unnecessary and in fact distracting if they state the obvious. 
+Inline comments are unnecessary and in fact distracting if they state the obvious.
 
 No:
 
@@ -378,7 +419,7 @@ Modules should have short, all-lowercase names. Underscores can be used in the m
 
 #### Class Names
 
-Class names should normally use the CapWords convention. 
+Class names should normally use the CapWords convention.
 
 Note some exceptions like `HTTPClient`, but NOT `HttpClient`.
 
